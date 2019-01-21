@@ -88,7 +88,8 @@ PRODUCT_COPY_FILES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
-    android.hardware.bluetooth@1.0-service
+    android.hardware.bluetooth@1.0-service \
+    libbt-vendor
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/bluetooth/bcm4335_prepatch.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/bcm4335_prepatch.hcd
@@ -288,20 +289,16 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-impl \
     android.hardware.wifi@1.0-service \
     libnetcmdiface \
-    libqsap_sdk \
-    libwcnss_qmi \
-    libwpa_client \
     macloader \
     hostapd \
-    wcnss_service \
     wificond \
     wifilogd \
     wpa_supplicant \
     wpa_supplicant.conf
 
-#PRODUCT_COPY_FILES += \
-#    $(COMMON_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-#    $(COMMON_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    $(COMMON_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 # Common Qualcomm
 $(call inherit-product, device/samsung/qcom-common/qcom-common.mk)

@@ -37,7 +37,8 @@ FIRMWARE_MDM_IMAGES := \
     mdm_acdb.img \
     rpm.mbn \
     sbl1.mbn \
-    sbl2.mbn
+    sbl2.mbn \
+    sbl3.mbn
 
 FIRMWARE_MDM_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(FIRMWARE_MDM_IMAGES)))
 $(FIRMWARE_MDM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
@@ -52,7 +53,11 @@ ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_MDM_SYMLINKS)
 # Create /firmware links
 FIRMWARE_IMAGES := \
     q6.b00 q6.b01 q6.b03 q6.b04 q6.b05 q6.b06 q6.mdt \
-    tzapps.b00 tzapps.b01 tzapps.b02 tzapps.b03 tzapps.mdt
+    tzapps.b00 tzapps.b01 tzapps.b02 tzapps.b03 tzapps.mdt \
+    keymaste.b00 keymaste.b01 keymaste.b02 keymaste.b03 keymaste.mdt \
+    mc_v2.b00 mc_v2.b01 mc_v2.b02 mc_v2.b03 mc_v2.mdt \
+    wcnss.b00 wcnss.b01 wcnss.b02 wcnss.b04 wcnss.b05 wcnss.b06 wcnss.mdt \
+    vidc.b00 vidc.b01 vidc.b02 vidc.b03 vidc.mdt
 
 FIRMWARE_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(FIRMWARE_IMAGES)))
 $(FIRMWARE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
@@ -62,5 +67,12 @@ $(FIRMWARE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_SYMLINKS)
+
+
+$(shell mkdir -p $(TARGET_OUT_ETC)/firmware/wcd9310; \
+	ln -sf /data/misc/audio/wcd9310_anc.bin \
+		$(TARGET_OUT_ETC)/firmware/wcd9310/wcd9310_anc.bin; \
+	ln -sf /data/misc/audio/mbhc.bin \
+		$(TARGET_OUT_ETC)/firmware/wcd9310/wcd9310_mbhc.bin)
 
 endif

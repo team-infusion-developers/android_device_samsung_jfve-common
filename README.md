@@ -1,4 +1,4 @@
-# Common device configuration for Samsung Galaxy S4 Value Edition (Qualcomm)
+# Common device configuration for Samsung Galaxy S4 Value Edition
 
 ## Spec Sheet
 

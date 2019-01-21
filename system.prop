@@ -13,6 +13,11 @@ use.voice.path.for.pcm.voip=false
 # Bluetooth
 ro.bt.bdaddr_path=/efs/bluetooth/bt_addr
 persist.bt.enableAptXHD=true
+qcom.bluetooth.soc=smd
+ro.bluetooth.dun=true
+ro.bluetooth.sap=true
+ro.bluetooth.hfp.ver=1.6
+ro.qualcomm.bt.hci_transport=smd
 
 # Charger
 ro.enable_boot_charger_mode=1
@@ -27,14 +32,12 @@ ro.sf.lcd_density=480
 persist.gps.qc_nlp_in_use=1
 
 # Media
+#media.stagefright.legacyencoder=true
+#media.stagefright.less-secure=true
+#camera.disable_treble=true
 camera2.portability.force_api=1
 mm.enable.smoothstreaming=true
 persist.media.treble_omx=false
-media.stagefright.enable-player=true
-media.stagefright.enable-meta=true
-media.stagefright.enable-scan=false
-media.stagefright.enable-http=true
-video.accelerate.hw=1
 
 # NFC
 ro.nfc.port=I2C
@@ -56,14 +59,15 @@ persist.radio.add_power_save=1
 persist.radio.apm_sim_not_pwdn=1
 rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
 
+# SSR
+persist.sys.ssr.restart_level=3
+
 # Tethering
 net.tethering.noprovisioning=true
-
-# Time
-persist.timed.enable=true
 
 # Timeout failed shutdowns
 ro.build.shutdown_timeout=5
 
 # WiFi
+ro.disableWifiApFirmwareReload=true
 wifi.interface=wlan0
