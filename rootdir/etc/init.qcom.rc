@@ -36,6 +36,8 @@ on early-init
 
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
+    
+    setprop ro.wcnss.serialno ${ro.boot.serialno}
 
 on init
 
@@ -51,13 +53,25 @@ on fs
     wait /dev/block/platform/${ro.boot.bootdevice}
     symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
 
-    mount_all fstab.qcom
+    mount_all fstab.qcom --early
 
     chown system radio /dev/block/platform/msm_sdcc.1/by-name
     chmod 0775 /dev/block/platform/msm_sdcc.1/by-name
 
     # default country code
     setprop ro.boot.wificountrycode 00
+
+    # Start HW service manager early
+    start hwservicemanager
+
+on late-fs
+    # Start services for bootanim
+    start surfaceflinger
+    start bootanim
+    start configstore-hal-1-0
+    start gralloc-2-0
+
+    mount_all ./fstab.qcom --late
 
 on post-fs-data
     # Create directories for tombstone
@@ -388,12 +402,6 @@ service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     user camera
     group camera system inet input graphics
 
-on property:init.svc.media=restarting
-    restart qcamerasvr
-
-on property:init.svc.servicemanager=restarting
-    restart qcamerasvr
-
 service mpdecision /system/vendor/bin/mpdecision --avg_comp
     class main
     user root
@@ -408,21 +416,6 @@ service kickstart /system/vendor/bin/qcks -i /firmware-mdm/image/
 
 on property:ro.baseband=mdm
     start kickstart
-
-service qseecomd /system/vendor/bin/qseecomd
-    class late_start
-    user system
-    group system
-
-service insthk /system/vendor/bin/insthk
-    class main
-    user root
-    disabled
-    oneshot
-    seclabel u:r:insthk:s0
-
-on property:sys.qseecomd.enable=true
-    start insthk
 
 service irsc_util /system/vendor/bin/irsc_util "/system/vendor/etc/sec_config"
     class main
@@ -485,3 +478,25 @@ on property:wlan.driver.status=ok
 # Disable boot timeout for external modems.
 on property:persist.sys.mdm.timeout_disable=1
     write /sys/module/mdm_common/parameters/disable_boot_timeout 1
+
+on property:vold.decrypt=trigger_restart_framework
+    start wcnss-service
+
+service hciattach /system/bin/sh /system/vendor/etc/init.qcom.bt.sh
+    class late_start
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+on property:bluetooth.hciattach=true
+    start hciattach
+
+on property:bluetooth.hciattach=false
+    setprop bluetooth.status off
+
+service wcnss-service /system/bin/wcnss_service
+    class main
+    user system
+    group system wifi radio
+    oneshot
