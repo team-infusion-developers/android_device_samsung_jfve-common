@@ -96,8 +96,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/bluetooth/btnvtool:system/vendor/bin/btnvtool \
     $(COMMON_PATH)/bluetooth/hci_qcomm_init:system/vendor/bin/hci_qcomm_init \
     $(COMMON_PATH)/bluetooth/init.qcom.bt.sh:system/vendor/etc/init.qcom.bt.sh \
-    $(COMMON_PATH)/bluetooth/libbtnv.so:system/vendor/lib/libbtnv.so \
-    $(COMMON_PATH)/bluetooth/libbt-vendor.so:system/vendor/lib/libbt-vendor.so
+    $(COMMON_PATH)/bluetooth/libbtnv.so:system/vendor/lib/libbtnv.so
 
 # Browser
 PRODUCT_PACKAGES += \
