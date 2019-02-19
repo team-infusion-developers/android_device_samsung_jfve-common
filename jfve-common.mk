@@ -91,12 +91,13 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-service
 
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/bluetooth/bcm4335_prepatch.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/bcm4335_prepatch.hcd \
+    $(COMMON_PATH)/bluetooth/bcm4335_prepatch.hcd:$(system/vendor)/firmware/bcm4335_prepatch.hcd \
     $(COMMON_PATH)/bluetooth/bluetooth.default.so:system/lib/hw/bluetooth.default.so \
-    $(COMMON_PATH)/bluetooth/btnvtool:$(TARGET_COPY_OUT_VENDOR)/bin/btnvtool \
-    $(COMMON_PATH)/bluetooth/hci_qcomm_init:$(TARGET_COPY_OUT_VENDOR)/bin/hci_qcomm_init \
-    $(COMMON_PATH)/bluetooth/init.qcom.bt.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.qcom.bt.sh \
-    $(COMMON_PATH)/bluetooth/libbtnv.so:$(TARGET_COPY_OUT_VENDOR)/lib/libbtnv.so
+    $(COMMON_PATH)/bluetooth/btnvtool:system/vendor/bin/btnvtool \
+    $(COMMON_PATH)/bluetooth/hci_qcomm_init:system/vendor/bin/hci_qcomm_init \
+    $(COMMON_PATH)/bluetooth/init.qcom.bt.sh:system/vendor/etc/init.qcom.bt.sh \
+    $(COMMON_PATH)/bluetooth/libbtnv.so:system/vendor/lib/libbtnv.so \
+    $(COMMON_PATH)/bluetooth/libbt-vendor.so:system/vendor/lib/libbt-vendor.so
 
 # Browser
 PRODUCT_PACKAGES += \
@@ -308,15 +309,15 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/hostapd.accept:system/etc/hostapd/hostapd.accept \
     $(COMMON_PATH)/configs/hostapd.deny:system/etc/hostapd/hostapd.deny \
     $(COMMON_PATH)/configs/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
-    $(COMMON_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    $(COMMON_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+    $(COMMON_PATH)/wifi/p2p_supplicant_overlay.conf:$(system/vendor)/etc/wifi/p2p_supplicant_overlay.conf \
+    $(COMMON_PATH)/wifi/wpa_supplicant_overlay.conf:$(system/vendor)/etc/wifi/wpa_supplicant_overlay.conf \
     $(COMMON_PATH)/wifi/wlan/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
     $(COMMON_PATH)/wifi/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
-    $(COMMON_PATH)/wifi/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
-
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    $(COMMON_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+    $(COMMON_PATH)/wifi/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
+    $(COMMON_PATH)/wifi/wlan/prima/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(COMMON_PATH)/wifi/wlan/prima/WCNSS_qcom_cfg.ini:system/vendor/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
+    $(COMMON_PATH)/wifi/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/vendor/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
+    $(COMMON_PATH)/wifi/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/vendor/etc/wifi/WCNSS_qcom_cfg.ini
 
 # Common Qualcomm
 $(call inherit-product, device/samsung/qcom-common/qcom-common.mk)
