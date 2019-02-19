@@ -1,1 +1,1 @@
-allow init debugfs:file write;
+type wifi_efs_file, file_type;
