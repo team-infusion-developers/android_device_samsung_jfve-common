@@ -319,4 +319,4 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, device/samsung/qcom-common/qcom-common.mk)
 
 # Get non-open-source specific aspects
-$(call inherit-product, vendor/samsung/jfvelte/jfvelte-vendor.mk)
+$(call inherit-product, vendor/samsung/jf-common/jf-common-vendor.mk)
