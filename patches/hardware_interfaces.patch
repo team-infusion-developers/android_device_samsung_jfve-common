@@ -1,12 +1,27 @@
-From 9172730a86227477031826b28e691136f8369259 Mon Sep 17 00:00:00 2001
+From 36d407d286bb0b2900bcc77c6699a933df513cc0 Mon Sep 17 00:00:00 2001
 From: Exodusnick <Christiancanale@gmx.de>
-Date: Tue, 19 Feb 2019 03:19:07 +0100
+Date: Thu, 21 Feb 2019 21:26:36 +0100
 Subject: [PATCH] Update android.hardware.wifi@1.0-service.rc
 
+bt voice: call sco config after initializing BT firmware
 ---
+ bluetooth/1.0/default/vendor_interface.cc             | 2 ++
  wifi/1.1/default/android.hardware.wifi@1.0-service.rc | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
+diff --git a/hardware/interfaces/bluetooth/1.0/default/vendor_interface.cc b/hardware/interfaces/bluetooth/1.0/default/vendor_interface.cc
+index 6ce2f11f..3c694388 100644
+--- a/hardware/interfaces/bluetooth/1.0/default/vendor_interface.cc
++++ b/hardware/interfaces/bluetooth/1.0/default/vendor_interface.cc
+@@ -337,6 +337,8 @@ void VendorInterface::OnFirmwareConfigured(uint8_t result) {
+     initialize_complete_cb_ = nullptr;
+   }
+ 
++  lib_interface_->op(BT_VND_OP_SCO_CFG, nullptr);
++
+   lib_interface_->op(BT_VND_OP_GET_LPM_IDLE_TIMEOUT, &lpm_timeout_ms);
+   ALOGI("%s: lpm_timeout_ms %d", __func__, lpm_timeout_ms);
+ 
 diff --git a/hardware/interfaces/wifi/1.1/default/android.hardware.wifi@1.0-service.rc b/hardware/interfaces/wifi/1.1/default/android.hardware.wifi@1.0-service.rc
 index 696b1f93..ff4596c7 100644
 --- a/hardware/interfaces/wifi/1.1/default/android.hardware.wifi@1.0-service.rc
