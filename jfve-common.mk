@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+PRODUCT_CHARACTERISTICS := phone
+
 COMMON_PATH := device/samsung/jfve-common
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
