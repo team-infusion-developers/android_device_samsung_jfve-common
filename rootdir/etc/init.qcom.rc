@@ -155,6 +155,12 @@ on post-fs-data
     mkdir /data/misc/perfd 2755 root system
     mkdir /data/system/perfd 2770 root system
 
+    service wcnss-service /system/bin/wcnss_service
+    class main
+    user system
+    group system wifi radio
+    oneshot
+
     setprop vold.post_fs_data_done 1
 
 on early-boot
@@ -397,6 +403,9 @@ on boot
     # RIL fast dormancy
     chown system radio /sys/class/sec/bamdmux/waketime
 
+    # WCNSS SSR    
+    write /sys/module/wcnss_ssr_8960/parameters/enable_riva_ssr 1
+
 service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
@@ -479,6 +488,16 @@ on property:wlan.driver.status=ok
 on property:persist.sys.mdm.timeout_disable=1
     write /sys/module/mdm_common/parameters/disable_boot_timeout 1
 
+# Limit to SoC reset (1) and independent SSR (3)
+on property:persist.sys.ssr.restart_level=1
+    write /sys/module/subsystem_restart/parameters/restart_level 1
+
+on property:persist.sys.ssr.restart_level=2
+    write /sys/module/subsystem_restart/parameters/restart_level 2
+
+on property:persist.sys.ssr.restart_level=3
+    write /sys/module/subsystem_restart/parameters/restart_level 3
+
 on property:vold.decrypt=trigger_restart_framework
     start wcnss-service
 
@@ -494,9 +513,4 @@ on property:bluetooth.hciattach=true
 
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
-
-service wcnss-service /system/bin/wcnss_service
-    class main
-    user system
-    group system wifi radio
-    oneshot
+    
