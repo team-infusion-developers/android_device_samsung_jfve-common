@@ -7,7 +7,7 @@ LOCAL_C_INCLUDES := \
     system/core/base/include \
     system/core/init
 LOCAL_CFLAGS := -Wall -DANDROID_TARGET=\"$(TARGET_BOARD_PLATFORM)\"
-LOCAL_SRC_FILES := init_jf.cpp
-LOCAL_MODULE := libinit_jf
+LOCAL_SRC_FILES := init_jfve.cpp
+LOCAL_MODULE := libinit_jfve
 
 include $(BUILD_STATIC_LIBRARY)

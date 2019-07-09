@@ -6,7 +6,7 @@
 
 set -e
 
-INITIAL_COPYRIGHT_YEAR=2013
+INITIAL_COPYRIGHT_YEAR=2014
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
@@ -25,9 +25,7 @@ fi
 setup_vendor "$DEVICE_COMMON" "$VENDOR" "$LINEAGE_ROOT" true
 
 # Copyright headers and guards
-write_headers "jactivelte jflteatt jfltespr jfltetmo jfltevzw \\
-                jfltexx jfltecan jflteusc jfltecri jfltecsp \\
-                jfltezm jftddxx jfltetfnatt"
+write_headers "jfvelte"
 
 # The standard common blobs
 write_makefiles "$MY_DIR"/proprietary-files.txt true
