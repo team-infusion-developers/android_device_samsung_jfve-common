@@ -39,6 +39,8 @@ on early-init
     mkdir /efs 0771 system radio
     chmod 644 /proc/cmdline
 
+    setprop ro.wcnss.serialno ${ro.boot.serialno}
+
 on init
     # Support legacy paths
     symlink /sdcard /storage/sdcard0
@@ -47,13 +49,25 @@ on fs
     wait /dev/block/platform/${ro.boot.bootdevice}
     symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
 
-    mount_all fstab.qcom
+    mount_all fstab.qcom --early
 
     chown system radio /dev/block/platform/msm_sdcc.1/by-name
     chmod 0775 /dev/block/platform/msm_sdcc.1/by-name
 
     # default country code
     setprop ro.boot.wificountrycode 00
+
+    # Start HW service manager early
+    start hwservicemanager
+
+on late-fs
+    # Start services for bootanim
+    start surfaceflinger
+    start bootanim
+    start configstore-hal-1-1
+    start gralloc-2-0
+
+    mount_all ./fstab.qcom --late
 
 on post-fs
     # Allow writing to the kernel trace log.
@@ -148,6 +162,12 @@ on post-fs-data
     # Create directories for perfd
     mkdir /data/misc/perfd 2755 root system
     mkdir /data/system/perfd 2770 root system
+
+    service wcnss-service /system/bin/wcnss_service
+    class main
+    user system
+    group system wifi radio
+    oneshot
 
     setprop vold.post_fs_data_done 1
 
@@ -396,6 +416,9 @@ on boot
     # RIL fast dormancy
     chown system radio /sys/class/sec/bamdmux/waketime
 
+    # WCNSS SSR    
+    write /sys/module/wcnss_ssr_8960/parameters/enable_riva_ssr 1
+
     # Wifi firmware reload path
     chown wifi wifi /sys/module/dhd/parameters/firmware_path
     chown wifi wifi /sys/module/dhd/parameters/nvram_path
@@ -484,6 +507,32 @@ service thermald /vendor/bin/thermald
 # Disable boot timeout for external modems.
 on property:persist.sys.mdm.timeout_disable=1
     write /sys/module/mdm_common/parameters/disable_boot_timeout 1
+
+# Limit to SoC reset (1) and independent SSR (3)
+on property:persist.sys.ssr.restart_level=1
+    write /sys/module/subsystem_restart/parameters/restart_level 1
+
+on property:persist.sys.ssr.restart_level=2
+    write /sys/module/subsystem_restart/parameters/restart_level 2
+
+on property:persist.sys.ssr.restart_level=3
+    write /sys/module/subsystem_restart/parameters/restart_level 3
+
+on property:vold.decrypt=trigger_restart_framework
+    start wcnss-service
+
+service hciattach /system/bin/sh /system/vendor/etc/init.qcom.bt.sh
+    class late_start
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+on property:bluetooth.hciattach=true
+    start hciattach
+
+on property:bluetooth.hciattach=false
+    setprop bluetooth.status off
 
 on property:sys.boot_completed=1
     setprop sys.io.scheduler cfq

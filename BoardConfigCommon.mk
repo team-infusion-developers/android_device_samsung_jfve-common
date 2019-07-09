@@ -28,7 +28,7 @@
 # Inherit from proprietary vendor
 -include vendor/samsung/jf-common/BoardConfigVendor.mk
 
-COMMON_PATH := device/samsung/jf-common
+COMMON_PATH := device/samsung/jfve-common
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8960
@@ -51,7 +51,7 @@ BOARD_KERNEL_IMAGE_NAME := zImage
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 LZMA_RAMDISK_TARGETS := recovery
-TARGET_KERNEL_CONFIG := lineageos_jf_defconfig
+TARGET_KERNEL_CONFIG := lineageos_jfve_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/jf
 
 # AAPT
@@ -69,7 +69,8 @@ USE_CUSTOM_AUDIO_POLICY := 1
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(COMMON_PATH)/bluetooth
 BOARD_CUSTOM_BT_CONFIG := $(COMMON_PATH)/bluetooth/vnd_jf.txt
-BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_HAVE_BLUETOOTH_QCOM := true
+BLUETOOTH_HCI_USE_MCT := true
 
 # Boot Animation
 TARGET_SCREEN_HEIGHT := 1920
@@ -161,22 +162,23 @@ PRODUCT_SHIPPING_API_LEVEL := 17
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 
 # Vendor Init
-TARGET_INIT_VENDOR_LIB := libinit_jf
-TARGET_RECOVERY_DEVICE_MODULES := libinit_jf
+TARGET_INIT_VENDOR_LIB := libinit_jfve
+TARGET_RECOVERY_DEVICE_MODULES := libinit_jfve
 
 # Wifi module
-BOARD_WLAN_DEVICE := bcmdhd
-BOARD_HAVE_SAMSUNG_WIFI := true
+BOARD_HAS_QCOM_WLAN := true
+BOARD_WLAN_DEVICE := qcwcn
 BOARD_HOSTAPD_DRIVER := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_${BOARD_WLAN_DEVICE}
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_${BOARD_WLAN_DEVICE}
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+TARGET_PROVIDES_WCNSS_QMI := true
+TARGET_USES_QCOM_WCNSS_QMI := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
-WIFI_BAND := 802_11_ABG
-WIFI_DRIVER_FW_PATH_AP := "/vendor/etc/wifi/bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/dhd/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_STA := "/vendor/etc/wifi/bcmdhd_sta.bin"
-WIFI_DRIVER_OPERSTATE_PATH := "/sys/class/net/wlan0/operstate"
+WIFI_DRIVER_MODULE_PATH := "/vendor/lib/modules/wlan.ko"
+WIFI_DRIVER_MODULE_NAME := "wlan"
+WIFI_DRIVER_FW_PATH_STA := "sta"
+WIFI_DRIVER_FW_PATH_AP := "ap"
 
 # TWRP (optional)
 ifeq ($(WITH_TWRP),true)

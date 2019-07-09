@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-$(LOCAL_PATH) := device/samsung/jf-common
+$(LOCAL_PATH) := device/samsung/jfve-common
 
 # Get non-open-source specific aspects if available
 $(call inherit-product-if-exists, vendor/samsung/jf-common/jf-common-vendor.mk)
@@ -82,12 +82,22 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-service \
     libbt-vendor
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/bluetooth/bluetooth.default.so:system/lib/hw/bluetooth.default.so \
+    $(LOCAL_PATH)/bluetooth/btnvtool:$(TARGET_COPY_OUT_VENDOR)/bin/btnvtool \
+    $(LOCAL_PATH)/bluetooth/hci_qcomm_init:$(TARGET_COPY_OUT_VENDOR)/bin/hci_qcomm_init \
+    $(LOCAL_PATH)/bluetooth/libbtnv.so:$(TARGET_COPY_OUT_VENDOR)/lib/libbtnv.so
+
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl.jf \
     camera.device@1.0-impl.jf \
     camera.msm8960 \
     Snap
+
+# Custom wifi service
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/vendor/etc/init/android.hardware.wifi@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.wifi@1.0-service.rc
 
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
@@ -114,6 +124,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service
+
+# Etc script
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/vendor/etc/init.qcom.bt.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.qcom.bt.sh
 
 # Filesystem tools
 PRODUCT_PACKAGES += \
@@ -201,6 +215,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.power@1.1-service-qti
 
+# Prima opensource driver files
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/prima/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
+    $(LOCAL_PATH)/prima/WCNSS_cfg.dat:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/prima/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/prima/WCNSS_qcom_wlan_nv.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
+    $(LOCAL_PATH)/prima/WCNSS_qcom_wlan_nv.bin:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
+
 # Ramdisk
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/fstab.qcom:root/fstab.qcom \
@@ -227,6 +251,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/_hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/_hals.conf
 
+# SoftAP
+PRODUCT_PACKAGES += \
+    libQWiFiSoftApCfg \
+    libqsap_sdk
+
 # System Properties
 $(call inherit-product, $(LOCAL_PATH)/system_prop.mk)
 
@@ -247,13 +276,20 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-service.jf
 
+# WCNSS service daemon
+PRODUCT_PACKAGES += \
+    libwcnss_qmi \
+    wcnss_service
+
 # Wifi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
-    macloader \
     hostapd \
+    libnetcmdiface \
     libwpa_client \
+    macloader \
     wificond \
+    wifilogd \
     wpa_supplicant \
     wpa_supplicant.conf
 
