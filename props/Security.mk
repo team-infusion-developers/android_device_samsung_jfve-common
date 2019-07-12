@@ -13,6 +13,3 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.service.adb.enable=1 \
     persist.sys.usb.config=adb
 
-# Aroma validation
-PRODUCT_PROPERTY_OVERRIDES += \
-	persist.vendor.romname=optlosjdc
