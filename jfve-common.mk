@@ -302,5 +302,8 @@ PRODUCT_COPY_FILES += \
 # Build with specific settings for jfvelte-common
 $(call inherit-product, $(LOCAL_PATH)/go_jfvelte-common.mk)
 
+# call jfve system props
+include device/samsung/jfvelte/props/*.mk
+
 # Common Qualcomm
 $(call inherit-product, device/samsung/qcom-common/qcom-common.mk)
