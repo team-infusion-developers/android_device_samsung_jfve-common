@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
  * Copyright (C) 2012 The CyanogenMod Project <http://www.cyanogenmod.org>
- * Copyright (C) 2016 The JDCTeam
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +19,15 @@
 #define _BDROID_BUILDCFG_H
 
 #define BTM_DEF_LOCAL_NAME   "Samsung Galaxy S IV"
+#define BTA_DISABLE_DELAY 100 /* in milliseconds */
+#define BLUETOOTH_QTI_SW TRUE
+#define BTA_HOST_INTERLEAVE_SEARCH TRUE
+#define SC_MODE_INCLUDED FALSE
+#define HCI_RAW_CMD_INCLUDED FALSE
+#define SDP_DEBUG FALSE
+#define BTSNOOP_MEM FALSE
 
-#define BTA_DISABLE_DELAY 1000 /* in milliseconds */
 
-
-#define BLE_VND_INCLUDED   TRUE
-#define BLE_PRIVACY_SPT    FALSE
-#define BTIF_HF_WBS_PREFERRED FALSE /* Don't prefer WBS    */
-
-
+/* Defined if the kernel does not have support for CLOCK_BOOTTIME_ALARM */
+#define KERNEL_MISSING_CLOCK_BOOTTIME_ALARM TRUE
 #endif
