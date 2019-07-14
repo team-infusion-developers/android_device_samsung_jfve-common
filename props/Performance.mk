@@ -24,8 +24,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Memory optimizations
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.qti.am.reschedule_service=true \
-    ro.vendor.qti.sys.fw.bservice_enable=true
-    
+    ro.vendor.qti.sys.fw.bservice_enable=true \
     config.disable_atlas=true \
     ro.sys.fw.use_trim_settings=true \
     ro.sys.fw.empty_app_percent=25 \
