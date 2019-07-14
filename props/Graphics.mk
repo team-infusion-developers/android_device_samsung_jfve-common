@@ -22,3 +22,17 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	debug.composition.type=c2d \
     debug.hwui.use_buffer_age=false
 
+# Force high-end graphics in low ram mode
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.force_highendgfx=true
+
+#Enable tile rendering
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.enabletr=true\
+    persist.sys.composition.type=gpu
+
+#3d performance
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.android.strictmode=0
+    ro.min_pointer_dur=1
+    ro.secure=0
