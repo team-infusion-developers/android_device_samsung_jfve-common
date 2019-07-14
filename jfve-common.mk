@@ -87,6 +87,26 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bluetooth/hci_qcomm_init:$(TARGET_COPY_OUT_VENDOR)/bin/hci_qcomm_init \
     $(LOCAL_PATH)/bluetooth/libbtnv.so:$(TARGET_COPY_OUT_VENDOR)/lib/libbtnv.so
 
+# init.d tweaks
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/tweaks/ram.killer/MramLag:system/etc/init.d/MramLag
+    $(LOCAL_PATH)/configs/tweaks/ram.killer/Zram:system/etc/init.d/Zram
+    $(LOCAL_PATH)/configs/tweaks/ram.killer/00syscleaner:system/etc/init.d/00syscleaner
+    $(LOCAL_PATH)/configs/tweaks/ram.killer/07RemoveCache:system/etc/init.d/07RemoveCache
+    $(LOCAL_PATH)/configs/tweaks/ram.killer/03ram_optimize:system/etc/init.d/03ram_optimize
+    $(LOCAL_PATH)/configs/tweaks/Optimizing/06gpurender:system/etc/init.d/06gpurenderer
+    $(LOCAL_PATH)/configs/tweaks/Optimizing/drop:system/etc/init.d/drop
+    $(LOCAL_PATH)/configs/tweaks/Optimizing/02VM:system/etc/init.d/02VM
+    $(LOCAL_PATH)/configs/tweaks/Optimizing/s91ecn:system/etc/init.d/s91ecn
+    $(LOCAL_PATH)/configs/tweaks/Optimizing/S98Liquidzipalign:system/etc/init.d/S98Liquidzipalign
+    $(LOCAL_PATH)/configs/tweaks/CPU/cpu:system/etc/init.d/cpu
+    $(LOCAL_PATH)/configs/tweaks/CPU/cpugputune:system/etc/init.d/cpugputune
+    $(LOCAL_PATH)/configs/tweaks/Fluidness/LoopySmoothnessTweaks:system/etc/init.d/LoopySmoothnessTweaks
+    $(LOCAL_PATH)/configs/tweaks/Fluidness/Zipalign:system/etc/init.d/Zipalign
+    $(LOCAL_PATH)/configs/tweaks/Battery/64MiscKernelTweaks:system/etc/init.d/64MiscKernelTweaks
+    $(LOCAL_PATH)/configs/tweaks/Battery/01batterytweaker:system/etc/init.d/01batterytweaker
+    $(LOCAL_PATH)/configs/tweaks/Battery/71RemoveLog:system/etc/init.d/71RemoveLog
+
 
 # Camera
 PRODUCT_PACKAGES += \
