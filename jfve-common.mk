@@ -83,11 +83,10 @@ PRODUCT_PACKAGES += \
     libbt-vendor
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/bluetooth/bluetooth.default.so:system/lib/hw/bluetooth.default.so \
-    $(LOCAL_PATH)/bluetooth/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
-	$(LOCAL_PATH)/bluetooth/btnvtool:system/bin/btnvtool \
-	$(LOCAL_PATH)/bluetooth/hci_qcomm_init:system/bin/hci_qcomm_init \
-	$(LOCAL_PATH)/bluetooth/libbtnv.so:system/lib/libbtnv.so
+    $(LOCAL_PATH)/bluetooth/btnvtool:$(TARGET_COPY_OUT_VENDOR)/bin/btnvtool \
+    $(LOCAL_PATH)/bluetooth/hci_qcomm_init:$(TARGET_COPY_OUT_VENDOR)/bin/hci_qcomm_init \
+    $(LOCAL_PATH)/bluetooth/libbtnv.so:$(TARGET_COPY_OUT_VENDOR)/lib/libbtnv.so
+
 
 # Camera
 PRODUCT_PACKAGES += \
