@@ -58,3 +58,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
+
+# Zram
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.zram=true \
+    sys.boot_completed=1
+
+# ROM Maintainer
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.infusion.maintainer=Sakthivel Nadar
