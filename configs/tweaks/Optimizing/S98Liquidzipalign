@@ -1,0 +1,48 @@
+#!/system/bin/sh
+
+function mountrw {
+  mount|grep "/system "|grep rw >/dev/null
+  [ $? -eq 1 ] && mount -o remount,rw $(mount|grep "/system "|awk '{ print $1 }') /system
+}
+function mountro {
+  mount|grep "/system "|grep ro >/dev/null
+  [ $? -eq 1 ] && mount -o remount,ro $(mount|grep "/system "|awk '{ print $1 }') /system
+}
+
+echo " Starting package optimization"
+ 
+echo "Starting ZipAlign $( date +"%m-%d-%Y %H:%M:%S" )"
+        zipalign -c 4 $apk;
+        ZIPCHECK=$?;
+        if [ $ZIPCHECK -eq 1 ]; then
+                mountrw;
+                echo ZipAligning $(basename $apk)
+                zipalign -f 4 $apk /cache/$(basename $apk);
+                        if [ -e /cache/$(basename $apk) ]; then
+                                cp -f -p /cache/$(basename $apk) $apk
+                                rm /cache/$(basename $apk);
+                        else
+                                echo ZipAligning $(basename $apk) Failed DC;
+                        fi;
+        else
+                echo Velocity ZipAlign already completed on $apk
+        fi;
+       done;
+    for apk in /data/app/*.apk ; do
+        zipalign -c 4 $apk;
+        ZIPCHECK=$?;
+        if [ $ZIPCHECK -eq 1 ]; then
+                echo ZipAligning $(basename $apk)
+                zipalign -f 4 $apk /cache/$(basename $apk);
+                        if [ -e /cache/$(basename $apk) ]; then
+                                cp -f -p /cache/$(basename $apk) $apk
+                                rm /cache/$(basename $apk);
+                        else
+                                echo ZipAligning $(basename $apk) Failed DC
+                        fi;
+        else
+                echo Velocity ZipAlign already completed on $apk
+        fi;
+       done;
+mountro;
+echo "ZipAlign finished at $( date +"%m-%d-%Y %H:%M:%S" )"
