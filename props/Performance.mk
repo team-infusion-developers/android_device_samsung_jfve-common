@@ -90,7 +90,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Zram
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.config.zram=true
+    ro.config.zram=true \
+    sys.boot_completed=1
 
 # enable harware egl profile
 PRODUCT_PROPERTY_OVERRIDES += \
