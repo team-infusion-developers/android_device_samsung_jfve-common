@@ -295,23 +295,22 @@ PRODUCT_COPY_FILES += \
 
 # init.d tweaks
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/tweaks/ram.killer/MramLag:system/etc/init.d/MramLag \
-    $(LOCAL_PATH)/configs/tweaks/ram.killer/Zram:system/etc/init.d/Zram \
-    $(LOCAL_PATH)/configs/tweaks/ram.killer/00syscleaner:system/etc/init.d/00syscleaner \
-    $(LOCAL_PATH)/configs/tweaks/ram.killer/07RemoveCache:system/etc/init.d/07RemoveCache \
-    $(LOCAL_PATH)/configs/tweaks/ram.killer/03ram_optimize:system/etc/init.d/03ram_optimize \
-    $(LOCAL_PATH)/configs/tweaks/Optimizing/06gpurender:system/etc/init.d/06gpurenderer \
-    $(LOCAL_PATH)/configs/tweaks/Optimizing/drop:system/etc/init.d/drop \
-    $(LOCAL_PATH)/configs/tweaks/Optimizing/02VM:system/etc/init.d/02VM \
-    $(LOCAL_PATH)/configs/tweaks/Optimizing/s91ecn:system/etc/init.d/s91ecn \
-    $(LOCAL_PATH)/configs/tweaks/Optimizing/S98Liquidzipalign:system/etc/init.d/S98Liquidzipalign \
-    $(LOCAL_PATH)/configs/tweaks/CPU/cpu:system/etc/init.d/cpu \
-    $(LOCAL_PATH)/configs/tweaks/CPU/cpugputune:system/etc/init.d/cpugputune \
-    $(LOCAL_PATH)/configs/tweaks/Fluidness/LoopySmoothnessTweaks:system/etc/init.d/LoopySmoothnessTweaks \
-    $(LOCAL_PATH)/configs/tweaks/Fluidness/Zipalign:system/etc/init.d/Zipalign \
-    $(LOCAL_PATH)/configs/tweaks/Battery/64MiscKernelTweaks:system/etc/init.d/64MiscKernelTweaks \
-    $(LOCAL_PATH)/configs/tweaks/Battery/01batterytweaker:system/etc/init.d/01batterytweaker \
-    $(LOCAL_PATH)/configs/tweaks/Battery/71RemoveLog:system/etc/init.d/71RemoveLog
+    $(LOCAL_PATH)/configs/MramLag:system/etc/init.d/MramLag \
+    $(LOCAL_PATH)/configs/Zram:system/etc/init.d/Zram \
+    $(LOCAL_PATH)/configs/00syscleaner:system/etc/init.d/00syscleaner \
+    $(LOCAL_PATH)/configs/07RemoveCache:system/etc/init.d/07RemoveCache \
+    $(LOCAL_PATH)/configs/03ram_optimize:system/etc/init.d/03ram_optimize \
+    $(LOCAL_PATH)/configs/06gpurender:system/etc/init.d/06gpurenderer \
+    $(LOCAL_PATH)/configs/drop:system/etc/init.d/drop \
+    $(LOCAL_PATH)/configs/02VM:system/etc/init.d/02VM \
+    $(LOCAL_PATH)/configs/s91ecn:system/etc/init.d/s91ecn \
+    $(LOCAL_PATH)/configs/S98Liquidzipalign:system/etc/init.d/S98Liquidzipalign \
+    $(LOCAL_PATH)/configs/cpugputune:system/etc/init.d/cpugputune \
+    $(LOCAL_PATH)/configs/LoopySmoothnessTweaks:system/etc/init.d/LoopySmoothnessTweaks \
+    $(LOCAL_PATH)/configs/Zipalign:system/etc/init.d/Zipalign \
+    $(LOCAL_PATH)/configs/64MiscKernelTweaks:system/etc/init.d/64MiscKernelTweaks \
+    $(LOCAL_PATH)/configs/01batterytweaker:system/etc/init.d/01batterytweaker \
+    $(LOCAL_PATH)/configs/71RemoveLog:system/etc/init.d/71RemoveLog
 
 # Build with specific settings for jfve-common
 $(call inherit-product, $(LOCAL_PATH)/go_jfve-common.mk)
